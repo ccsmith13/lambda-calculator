@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { numbers } from "../../../data";
 
-const NumberButton = () => {
-  return (
-    <>
-      {/* Display a button element rendering the data being passed down from the parent container on props */}
-    </>
-  );
+const getButtonClass = props => {
+  console.log(props);
+  if (props.button === "0") {
+    return "zeroButton";
+  } else {
+    return "buttonStyle";
+  }
 };
+
+const NumberButton = props => {
+  return <button className={getButtonClass(props)}>{props.button}</button>;
+};
+
+export default function NumberButtonRender() {
+  const [numberButtons, setNumberButtons] = useState(numbers);
+
+  return (
+    <div>
+      {numberButtons.map((buttonValue, index) => {
+        return (
+          <NumberButton
+            key={index}
+            button={buttonValue}
+            selectButton={setNumberButtons}
+          />
+        );
+      })}
+    </div>
+  );
+}
